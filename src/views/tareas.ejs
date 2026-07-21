@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/tareas.css">
+        <title>Sistema de Tareas</title>
+    </head>
+    <body>
+        <h1>Sistema de Tareas</h1>
+
+        <div class="acciones-superiores">
+            <a href="/tareas/nuevo" class="btn btn-crear">+ Nueva Tarea</a>
+        </div>
+
+        <h2>Lista de Tareas</h2>
+
+        <div class="filtros">
+            <a href="/" class="btn <%= estadoActual === 'todas' ? 'btn-filtro-activo' : 'btn-filtro' %>">Todas</a>
+            <a href="/?estado=Pendiente" class="btn <%= estadoActual === 'Pendiente' ? 'btn-filtro-activo' : 'btn-filtro' %>">Pendientes</a>
+            <a href="/?estado=Completada" class="btn <%= estadoActual === 'Completada' ? 'btn-filtro-activo' : 'btn-filtro' %>">Completadas</a>
+        </div>
+
+        <div class="tabla-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Titulo</th>
+                        <th>Descripcion</th>
+                        <th>Estado</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% tareas.forEach(tarea =>{ %>
+                        <tr>
+                            <td><%= tarea.titulo %></td>
+                            <td><%= tarea.descripcion %></td>
+                            <td>
+                                <span class="badge <%= tarea.estado === 'Pendiente' ? 'badge-pendiente' : 'badge-completada' %>">
+                                    <%= tarea.estado %>
+                                </span>
+                            </td>
+                            <td><%= tarea.createdAt.toLocaleDateString("es-CR") %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

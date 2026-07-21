@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/tareas.css">
+        <title>Nueva Tarea</title>
+    </head>
+    <body>
+        <main class="container">
+            <h1>Crear Nueva Tarea</h1>
+
+            <form action="/tareas" method="post" class="formulario">
+                <label for="titulo">T�tulo de la tarea</label>
+                <input
+                    type="text"
+                    id="titulo"
+                    name="titulo"
+                    placeholder="Ejemplo: Reuni�n de equipo"
+                    required
+                >
+                <label for="descripcion">Descripci�n</label>
+                <input
+                    type="text"
+                    id="descripcion"
+                    name="descripcion"
+                    placeholder="Ejemplo: Revisar avances del proyecto"
+                    required
+                >
+                <label for="estado">Estado</label>
+                <select id="estado" name="estado">
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Completada">Completada</option>
+                </select>
+                <div class="acciones-formulario">
+                    <button type="submit" class="btn btn-crear-form">Guardar Tarea</button>
+                    <a href="/" class="btn btn-cancelar">Cancelar</a>
+                </div>
+            </form>
+        </main>
+    </body>
+</html>
