@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/tareas.css">
     <title>Gestión de Tareas</title>
 </head>
@@ -36,41 +37,45 @@
     </div>
 
     <div class="kanban">
-        <div class="column">
-            <div class="col-header">
-                <div class="col-dot rojo"></div>
-                <span class="col-title">Pendientes</span>
-                <span class="col-count"><%= tareas.filter(t => t.estado === 'Pendiente').length %></span>
-            </div>
-            <% tareas.filter(t => t.estado === 'Pendiente').forEach((tarea, index) => { %>
-                <div class="task-card color-<%= index % 6 %>">
-                    <div class="task-title"><%= tarea.titulo %></div>
-                    <div class="task-desc"><%= tarea.descripcion %></div>
-                    <div class="task-footer">
-                        <span class="badge badge-pendiente">Pendiente</span>
-                        <span class="task-date"><%= tarea.createdAt.toLocaleDateString("es-CR") %></span>
-                    </div>
-                </div>
-            <% }) %>
+    <% if(estadoActual === 'todas' || estadoActual === 'Pendiente') { %>
+    <div class="column">
+        <div class="col-header">
+            <div class="col-dot rojo"></div>
+            <span class="col-title">Pendientes</span>
+            <span class="col-count"><%= tareas.filter(t => t.estado === 'Pendiente').length %></span>
         </div>
-
-        <div class="column">
-            <div class="col-header">
-                <div class="col-dot verde"></div>
-                <span class="col-title">Completadas</span>
-                <span class="col-count"><%= tareas.filter(t => t.estado === 'Completada').length %></span>
-            </div>
-            <% tareas.filter(t => t.estado === 'Completada').forEach((tarea, index) => { %>
-                <div class="task-card color-<%= (index + 3) % 6 %>">
-                    <div class="task-title"><%= tarea.titulo %></div>
-                    <div class="task-desc"><%= tarea.descripcion %></div>
-                    <div class="task-footer">
-                        <span class="badge badge-completada">Completada</span>
-                        <span class="task-date"><%= tarea.createdAt.toLocaleDateString("es-CR") %></span>
-                    </div>
+        <% tareas.filter(t => t.estado === 'Pendiente').forEach((tarea, index) => { %>
+            <div class="task-card color-<%= index % 6 %>">
+                <div class="task-title"><%= tarea.titulo %></div>
+                <div class="task-desc"><%= tarea.descripcion %></div>
+                <div class="task-footer">
+                    <span class="badge badge-pendiente">Pendiente</span>
+                    <span class="task-date"><%= tarea.createdAt.toLocaleDateString("es-CR") %></span>
                 </div>
-            <% }) %>
-        </div>
+            </div>
+        <% }) %>
     </div>
+    <% } %>
+
+    <% if(estadoActual === 'todas' || estadoActual === 'Completada') { %>
+    <div class="column">
+        <div class="col-header">
+            <div class="col-dot verde"></div>
+            <span class="col-title">Completadas</span>
+            <span class="col-count"><%= tareas.filter(t => t.estado === 'Completada').length %></span>
+        </div>
+        <% tareas.filter(t => t.estado === 'Completada').forEach((tarea, index) => { %>
+            <div class="task-card color-<%= (index + 3) % 6 %>">
+                <div class="task-title"><%= tarea.titulo %></div>
+                <div class="task-desc"><%= tarea.descripcion %></div>
+                <div class="task-footer">
+                    <span class="badge badge-completada">Completada</span>
+                    <span class="task-date"><%= tarea.createdAt.toLocaleDateString("es-CR") %></span>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+    <% } %>
+</div>
 </body>
 </html>
