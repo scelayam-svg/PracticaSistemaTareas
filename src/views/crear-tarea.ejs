@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/css/tareas.css">
-        <title>Nueva Tarea</title>
-    </head>
-    <body>
-        <main class="container">
-            <h1>Crear Nueva Tarea</h1>
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/tareas.css">
+    <title>Nueva Tarea</title>
+</head>
+<body>
+    <main class="form-container">
+        <h1>Crear Nueva Tarea</h1>
+        <div class="form-card">
             <form action="/tareas" method="post" class="formulario">
                 <label for="titulo">Título de la tarea</label>
                 <input
                     type="text"
                     id="titulo"
                     name="titulo"
-                    placeholder="Ejemplo: Reunión de equipo"
+                    placeholder="Ej: Reunión con cliente"
                     required
                 >
                 <label for="descripcion">Descripción</label>
@@ -24,7 +24,7 @@
                     type="text"
                     id="descripcion"
                     name="descripcion"
-                    placeholder="Ejemplo: Revisar avances del proyecto"
+                    placeholder="Ej: Presentar avances del proyecto"
                     required
                 >
                 <label for="estado">Estado</label>
@@ -33,10 +33,11 @@
                     <option value="Completada">Completada</option>
                 </select>
                 <div class="acciones-formulario">
-                    <button type="submit" class="btn btn-crear-form">Guardar Tarea</button>
-                    <a href="/" class="btn btn-cancelar">Cancelar</a>
+                    <button type="submit" class="btn-guardar">Guardar Tarea</button>
+                    <a href="/" class="btn-cancelar">Cancelar</a>
                 </div>
             </form>
-        </main>
-    </body>
+        </div>
+    </main>
+</body>
 </html>
