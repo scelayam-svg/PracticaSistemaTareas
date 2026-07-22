@@ -7,11 +7,11 @@ import {
 }
 from "../services/tarea.service.js"
 
-//Mostrar las tareas en la página principal
+//Mostrar las tareas en la pagina principal
 //-----------------------------------------------------------------
 export async function mostrarTareas(req,res){
     try {
-        const { estado } = req.query;
+        const { estado } = req.query; //Lee el URL y lo pasa al service
         const tareas = await obtenerTareas(estado);
         res.render("tareas",{ tareas, estadoActual: estado || "todas" });
     } catch (error) {
@@ -19,7 +19,7 @@ export async function mostrarTareas(req,res){
     }
 }
 
-//Mostrar el formulario de creación
+//Mostrar el formulario de creacion
 //-----------------------------------------------
 export function mostrarFormularioCrear(req,res){
     res.render("crear-tarea");

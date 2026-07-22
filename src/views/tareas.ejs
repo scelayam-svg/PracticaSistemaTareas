@@ -9,16 +9,29 @@
     <body>
         <h1>Sistema de Tareas</h1>
 
-        <div class="acciones-superiores">
-            <a href="/tareas/nuevo" class="btn btn-crear">+ Nueva Tarea</a>
+        <div class="cards-row">
+            <div class="summary-card card-total">
+                <div class="number"><%= tareas.length %></div>
+                <div class="card-label">Total de tareas</div>
+            </div>
+            <div class="summary-card card-pendiente">
+                <div class="number"><%= tareas.filter(t => t.estado === 'Pendiente').length %></div>
+                <div class="card-label">Pendientes</div>
+            </div>
+            <div class="summary-card card-completada">
+                <div class="number"><%= tareas.filter(t => t.estado === 'Completada').length %></div>
+                <div class="card-label">Completadas</div>
+            </div>
         </div>
 
-        <h2>Lista de Tareas</h2>
-
         <div class="filtros">
-            <a href="/" class="btn <%= estadoActual === 'todas' ? 'btn-filtro-activo' : 'btn-filtro' %>">Todas</a>
-            <a href="/?estado=Pendiente" class="btn <%= estadoActual === 'Pendiente' ? 'btn-filtro-activo' : 'btn-filtro' %>">Pendientes</a>
-            <a href="/?estado=Completada" class="btn <%= estadoActual === 'Completada' ? 'btn-filtro-activo' : 'btn-filtro' %>">Completadas</a>
+            <a href="/" class="btn-filtro btn-todas <%= estadoActual === 'todas' ? 'activo' : '' %>">Todas</a>
+            <a href="/?estado=Pendiente" class="btn-filtro btn-pendiente <%= estadoActual === 'Pendiente' ? 'activo' : '' %>">Pendientes</a>
+            <a href="/?estado=Completada" class="btn-filtro btn-completada <%= estadoActual === 'Completada' ? 'activo' : '' %>">Completadas</a>
+        </div>
+
+        <div class="acciones-superiores">
+            <a href="/tareas/nuevo" class="btn-nueva">+ Nueva Tarea</a>
         </div>
 
         <div class="tabla-wrapper">

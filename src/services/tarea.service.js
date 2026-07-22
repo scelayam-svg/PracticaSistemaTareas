@@ -4,7 +4,7 @@ import Tarea from "../models/tarea.model.js";
 //Devuelva todas las tareas
 export async function obtenerTareas(estado){
     if(estado){
-        return await Tarea.find({estado}).sort({createdAt:-1});
+        return await Tarea.find({estado}).sort({createdAt:-1});//MongoDb filtra por estado
     }
     return await Tarea.find().sort({createdAt:-1});
 }
