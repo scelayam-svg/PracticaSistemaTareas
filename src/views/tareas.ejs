@@ -1,64 +1,76 @@
 ﻿<!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/css/tareas.css">
-        <title>Sistema de Tareas</title>
-    </head>
-    <body>
-        <h1>Sistema de Tareas</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/tareas.css">
+    <title>Gestión de Tareas</title>
+</head>
+<body>
+    <h1>Gestión de Tareas</h1>
 
-        <div class="cards-row">
-            <div class="summary-card card-total">
-                <div class="number"><%= tareas.length %></div>
-                <div class="card-label">Total de tareas</div>
-            </div>
-            <div class="summary-card card-pendiente">
-                <div class="number"><%= tareas.filter(t => t.estado === 'Pendiente').length %></div>
-                <div class="card-label">Pendientes</div>
-            </div>
-            <div class="summary-card card-completada">
-                <div class="number"><%= tareas.filter(t => t.estado === 'Completada').length %></div>
-                <div class="card-label">Completadas</div>
-            </div>
+    <div class="summary-row">
+        <div class="summary-card card-total">
+            <div class="main-label">Total de tareas</div>
+            <div class="main-num"><%= tareas.length %></div>
+            <div class="sub">Registradas en el sistema</div>
         </div>
+        <div class="summary-card">
+            <div class="main-num"><%= tareas.filter(t => t.estado === 'Pendiente').length %></div>
+            <div class="main-label">Pendientes</div>
+        </div>
+        <div class="summary-card">
+            <div class="main-num"><%= tareas.filter(t => t.estado === 'Completada').length %></div>
+            <div class="main-label">Completadas</div>
+        </div>
+    </div>
 
+    <div class="toolbar">
         <div class="filtros">
-            <a href="/" class="btn-filtro btn-todas <%= estadoActual === 'todas' ? 'activo' : '' %>">Todas</a>
-            <a href="/?estado=Pendiente" class="btn-filtro btn-pendiente <%= estadoActual === 'Pendiente' ? 'activo' : '' %>">Pendientes</a>
-            <a href="/?estado=Completada" class="btn-filtro btn-completada <%= estadoActual === 'Completada' ? 'activo' : '' %>">Completadas</a>
+            <a href="/" class="btn-filtro <%= estadoActual === 'todas' ? 'activo' : '' %>">Todas</a>
+            <a href="/?estado=Pendiente" class="btn-filtro <%= estadoActual === 'Pendiente' ? 'activo' : '' %>">Pendientes</a>
+            <a href="/?estado=Completada" class="btn-filtro <%= estadoActual === 'Completada' ? 'activo' : '' %>">Completadas</a>
+        </div>
+        <a href="/tareas/nuevo" class="btn-nueva">+ Nueva Tarea</a>
+    </div>
+
+    <div class="kanban">
+        <div class="column">
+            <div class="col-header">
+                <div class="col-dot rojo"></div>
+                <span class="col-title">Pendientes</span>
+                <span class="col-count"><%= tareas.filter(t => t.estado === 'Pendiente').length %></span>
+            </div>
+            <% tareas.filter(t => t.estado === 'Pendiente').forEach((tarea, index) => { %>
+                <div class="task-card color-<%= index % 6 %>">
+                    <div class="task-title"><%= tarea.titulo %></div>
+                    <div class="task-desc"><%= tarea.descripcion %></div>
+                    <div class="task-footer">
+                        <span class="badge badge-pendiente">Pendiente</span>
+                        <span class="task-date"><%= tarea.createdAt.toLocaleDateString("es-CR") %></span>
+                    </div>
+                </div>
+            <% }) %>
         </div>
 
-        <div class="acciones-superiores">
-            <a href="/tareas/nuevo" class="btn-nueva">+ Nueva Tarea</a>
+        <div class="column">
+            <div class="col-header">
+                <div class="col-dot verde"></div>
+                <span class="col-title">Completadas</span>
+                <span class="col-count"><%= tareas.filter(t => t.estado === 'Completada').length %></span>
+            </div>
+            <% tareas.filter(t => t.estado === 'Completada').forEach((tarea, index) => { %>
+                <div class="task-card color-<%= (index + 3) % 6 %>">
+                    <div class="task-title"><%= tarea.titulo %></div>
+                    <div class="task-desc"><%= tarea.descripcion %></div>
+                    <div class="task-footer">
+                        <span class="badge badge-completada">Completada</span>
+                        <span class="task-date"><%= tarea.createdAt.toLocaleDateString("es-CR") %></span>
+                    </div>
+                </div>
+            <% }) %>
         </div>
-
-        <div class="tabla-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Título</th>
-                        <th>Descripción</th>
-                        <th>Estado</th>
-                        <th>Fecha</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% tareas.forEach(tarea =>{ %>
-                        <tr>
-                            <td><%= tarea.titulo %></td>
-                            <td><%= tarea.descripcion %></td>
-                            <td>
-                                <span class="badge <%= tarea.estado === 'Pendiente' ? 'badge-pendiente' : 'badge-completada' %>">
-                                    <%= tarea.estado %>
-                                </span>
-                            </td>
-                            <td><%= tarea.createdAt.toLocaleDateString("es-CR") %></td>
-                        </tr>
-                    <% }) %>
-                </tbody>
-            </table>
-        </div>
-    </body>
+    </div>
+</body>
 </html>
